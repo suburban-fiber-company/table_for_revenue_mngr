@@ -145,13 +145,7 @@ export const columns: ColumnDef<DataSubscription>[] = [
     accessorKey: nameof<DataSubscription>("customerName"),
     header: ({ column }) => {
       return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Customer Name
-          <CaretSortIcon className="ml-2 h-4 w-4" />
-        </Button>
+        <TableColumnButton column={column}>Customer Name</TableColumnButton>
       );
     },
     cell: ({ row }) => (
@@ -164,13 +158,7 @@ export const columns: ColumnDef<DataSubscription>[] = [
     accessorKey: nameof<DataSubscription>("subStartDate"),
     header: ({ column }) => {
       return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Sub Start Date
-          <CaretSortIcon className="ml-2 h-4 w-4" />
-        </Button>
+        <TableColumnButton column={column}>Sub Start Date</TableColumnButton>
       );
     },
     cell: ({ row }) => (
@@ -181,10 +169,12 @@ export const columns: ColumnDef<DataSubscription>[] = [
   },
   {
     accessorKey: nameof<DataSubscription>("dueAmount"),
-    header: () => <div className="text-right">Due Amount</div>,
+    header: ({ column }) => (
+      <TableColumnButton column={column}>Due Amount</TableColumnButton>
+    ),
     cell: ({ row }) => {
       return (
-        <div className="text-right font-medium">
+        <div className="text-center font-medium">
           {String(
             row.getValue(nameof<DataSubscription>("dueAmount"))
           ).toLocaleString()}
@@ -194,10 +184,12 @@ export const columns: ColumnDef<DataSubscription>[] = [
   },
   {
     accessorKey: nameof<DataSubscription>("billingCycle"),
-    header: () => <div className="text-right">Billing Cycle</div>,
+    header: ({ column }) => (
+      <TableColumnButton column={column}>Billing Cycle</TableColumnButton>
+    ),
     cell: ({ row }) => {
       return (
-        <div className="text-right font-medium">
+        <div className="text-center font-medium">
           {String(
             row.getValue(nameof<DataSubscription>("billingCycle"))
           ).toLocaleString()}
@@ -207,10 +199,12 @@ export const columns: ColumnDef<DataSubscription>[] = [
   },
   {
     accessorKey: nameof<DataSubscription>("creditLimit"),
-    header: () => <div className="text-right">Credit Limit</div>,
+    header: ({ column }) => (
+      <TableColumnButton column={column}>Credit Limit</TableColumnButton>
+    ),
     cell: ({ row }) => {
       return (
-        <div className="text-right font-medium">
+        <div className="text-center font-medium">
           {String(
             row.getValue(nameof<DataSubscription>("creditLimit"))
           ).toLocaleString()}
@@ -220,10 +214,12 @@ export const columns: ColumnDef<DataSubscription>[] = [
   },
   {
     accessorKey: nameof<DataSubscription>("paymentAmount"),
-    header: () => <div className="text-right">Payment Amount</div>,
+    header: ({ column }) => (
+      <TableColumnButton column={column}>Payment Amount</TableColumnButton>
+    ),
     cell: ({ row }) => {
       return (
-        <div className="text-right font-medium">
+        <div className="text-center font-medium">
           {String(
             row.getValue(nameof<DataSubscription>("paymentAmount"))
           ).toLocaleString()}
@@ -233,7 +229,9 @@ export const columns: ColumnDef<DataSubscription>[] = [
   },
   {
     accessorKey: nameof<DataSubscription>("customerStatus"),
-    header: () => <div className="text-right">Customer Status</div>,
+    header: ({ column }) => (
+      <TableColumnButton column={column}>Customer Status</TableColumnButton>
+    ),
     cell: ({ row }) => {
       return (
         <div className="flex justify-center font-medium">
@@ -249,15 +247,7 @@ export const columns: ColumnDef<DataSubscription>[] = [
   {
     accessorKey: nameof<DataSubscription>("service"),
     header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Service
-          <CaretSortIcon className="ml-2 h-4 w-4" />
-        </Button>
-      );
+      return <TableColumnButton column={column}>Service</TableColumnButton>;
     },
     cell: ({ row }) => (
       <div className="capitalize">
@@ -268,18 +258,10 @@ export const columns: ColumnDef<DataSubscription>[] = [
   {
     accessorKey: nameof<DataSubscription>("type"),
     header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Type
-          <CaretSortIcon className="ml-2 h-4 w-4" />
-        </Button>
-      );
+      return <TableColumnButton column={column}>Type</TableColumnButton>;
     },
     cell: ({ row }) => (
-      <div className="capitalize">
+      <div className="text-center font-medium">
         {String(
           row.getValue(nameof<DataSubscription>("type"))
         ).toLocaleString()}
@@ -290,18 +272,10 @@ export const columns: ColumnDef<DataSubscription>[] = [
   {
     accessorKey: nameof<DataSubscription>("receivable"),
     header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Receivable
-          <CaretSortIcon className="ml-2 h-4 w-4" />
-        </Button>
-      );
+      return <TableColumnButton column={column}>Receivable</TableColumnButton>;
     },
     cell: ({ row }) => (
-      <div className="capitalize">
+      <div className="text-center font-medium">
         {String(
           row.getValue(nameof<DataSubscription>("receivable"))
         ).toLocaleString()}
@@ -338,6 +312,22 @@ export const columns: ColumnDef<DataSubscription>[] = [
     },
   },
 ];
+
+const TableColumnButton = ({
+  column,
+  children,
+}: {
+  column: any;
+  children: any;
+}) => (
+  <Button
+    variant="ghost"
+    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+  >
+    {children}
+    <CaretSortIcon className="ml-2 h-4 w-4" />
+  </Button>
+);
 
 const DataTableDemo = () => {
   const [sorting, setSorting] = React.useState<SortingState>([]);
